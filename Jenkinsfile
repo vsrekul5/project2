@@ -1,7 +1,8 @@
 pipeline {
 
   environment {
-    dockerimagename = "thetips4you/nodeapp"
+    dockerimagename = "vsrekul/nodeapp"
+    registryCredential = 'dh_id'
     dockerImage = ""
   }
 
@@ -11,7 +12,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/shazforiot/nodeapp_test.git'
+        git 'https://github.com/vsrekul5/project2.git'
       }
     }
 
@@ -24,10 +25,6 @@ pipeline {
     }
 
     stage('Pushing Image') {
-      environment {
-               registryCredential = 'dockerhublogin'
-           }
-      steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
             dockerImage.push("latest")
