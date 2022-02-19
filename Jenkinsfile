@@ -25,13 +25,15 @@ pipeline {
     }
 
     stage('Pushing Image') {
+      steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
             dockerImage.push("latest")
           }
         }
       }
-    }
+        
+      }
     stage('Deploying App to Kubernetes') {
       steps {
         script {
@@ -41,3 +43,4 @@ pipeline {
     }
   }
 }
+
